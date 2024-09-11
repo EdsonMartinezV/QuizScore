@@ -16,7 +16,7 @@ const props = defineProps({
 
 const form = useForm({
     nickname: '',
-    role: '',
+    role_id: '',
     password: '',
     password_confirmation: '',
 });
@@ -50,18 +50,18 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="role" value="Rol"/>
+                <InputLabel for="role_id" value="Rol"/>
 
                 <SelectInput
-                    id="role"
+                    id="role_id"
                     class="mt-1 block w-full"
-                    v-model="form.role"
+                    v-model="form.role_id"
                     required
                     :items="props.roles"
                     :display-fields="['description']"
                 />
 
-                <InputError class="mt-2" :message="form.errors.role" />
+                <InputError class="mt-2" :message="form.errors.role_id" />
             </div>
 
             <div class="mt-4">

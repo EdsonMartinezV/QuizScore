@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'nickname' => 'required|string|max:15|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'exists:roles,id']
+            'role_id' => ['required', 'exists:roles,id']
         ]);
 
         $user = User::create([
@@ -47,7 +47,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->roles()->attach($request->integer('role'));
+        $user->roles()->attach($request->integer('role_id'));
 
         event(new Registered($user));
 
