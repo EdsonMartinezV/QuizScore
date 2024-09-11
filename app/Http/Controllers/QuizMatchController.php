@@ -13,7 +13,10 @@ class QuizMatchController extends Controller
     public function index(Request $request): Response{
         return Inertia::render('QuizMatches/Index', [
             'matches' => QuizMatch::orderBy('updated_at', 'desc')->with(['localTeam', 'guestTeam'])->get(),
-            'matchTypes' => MatchType::cases()
+            'matchTypes' => MatchType::cases(),
+            'showModal' => array_key_exists('showModal', $request->query()),
+            'modalTitle' => array_key_exists('modalTitle', $request->query()) ? $request->query('modalTitle') : null,
+            'modalMessage' => array_key_exists('modalMessage', $request->query()) ? $request->query('modalMessage') : null
         ]);
     }
 }
