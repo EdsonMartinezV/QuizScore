@@ -12,7 +12,7 @@ class QuizMatchController extends Controller
 {
     public function index(Request $request): Response{
         return Inertia::render('QuizMatches/Index', [
-            'matches' => QuizMatch::all(),
+            'matches' => QuizMatch::orderBy('updated_at', 'desc')->with(['localTeam', 'guestTeam'])->get(),
             'matchTypes' => MatchType::cases()
         ]);
     }

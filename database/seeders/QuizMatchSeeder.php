@@ -20,333 +20,333 @@ class QuizMatchSeeder extends Seeder
         }
 
         QuizMatch::create([
-            'local_team_id' => $teams['Oriente']->id,
-            'guest_team_id' => $teams['Oaxaca']->id
+            'local_team_id' => $teams['oriente']->id,
+            'guest_team_id' => $teams['oaxaca']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Noreste']->id,
-            'guest_team_id' => $teams['Norte']->id
+            'local_team_id' => $teams['noreste']->id,
+            'guest_team_id' => $teams['norte']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Occidente']->id,
-            'guest_team_id' => $teams['Noroccidental']->id
+            'local_team_id' => $teams['occidente']->id,
+            'guest_team_id' => $teams['noroccidental']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurSierra']->id,
-            'guest_team_id' => $teams['Sur']->id
+            'local_team_id' => $teams['sur_sierra']->id,
+            'guest_team_id' => $teams['sur']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Noreste']->id,
-            'guest_team_id' => $teams['SurPacifico']->id
+            'local_team_id' => $teams['noreste']->id,
+            'guest_team_id' => $teams['sur_pacifico']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['OaxacaNorponiente']->id,
-            'guest_team_id' => $teams['Centro']->id
+            'local_team_id' => $teams['oaxaca_norponiente']->id,
+            'guest_team_id' => $teams['centro']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['Oriente']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['oriente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurSierra']->id,
-            'guest_team_id' => $teams['Norte']->id
+            'local_team_id' => $teams['sur_sierra']->id,
+            'guest_team_id' => $teams['norte']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['OaxacaNorponiente']->id,
-            'guest_team_id' => $teams['Noroccidental']->id
+            'local_team_id' => $teams['oaxaca_norponiente']->id,
+            'guest_team_id' => $teams['noroccidental']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Occidente']->id,
-            'guest_team_id' => $teams['Oaxaca']->id
+            'local_team_id' => $teams['occidente']->id,
+            'guest_team_id' => $teams['oaxaca']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Centro']->id,
-            'guest_team_id' => $teams['Sur']->id
+            'local_team_id' => $teams['centro']->id,
+            'guest_team_id' => $teams['sur']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['Noreste']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['noreste']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Occidente']->id,
-            'guest_team_id' => $teams['Oriente']->id
+            'local_team_id' => $teams['occidente']->id,
+            'guest_team_id' => $teams['oriente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurSierra']->id,
-            'guest_team_id' => $teams['SurPacifico']->id
+            'local_team_id' => $teams['sur_sierra']->id,
+            'guest_team_id' => $teams['sur_pacifico']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['OaxacaNorponiente']->id,
-            'guest_team_id' => $teams['Oaxaca']->id
+            'local_team_id' => $teams['oaxaca_norponiente']->id,
+            'guest_team_id' => $teams['oaxaca']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['SurPacifico']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['sur_pacifico']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Centro']->id,
-            'guest_team_id' => $teams['Norte']->id
+            'local_team_id' => $teams['centro']->id,
+            'guest_team_id' => $teams['norte']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Sur']->id,
-            'guest_team_id' => $teams['Noroccidental']->id
+            'local_team_id' => $teams['sur']->id,
+            'guest_team_id' => $teams['noroccidental']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['Occidente']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['occidente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurSierra']->id,
-            'guest_team_id' => $teams['Noreste']->id
+            'local_team_id' => $teams['sur_sierra']->id,
+            'guest_team_id' => $teams['noreste']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['OaxacaNorponiente']->id,
-            'guest_team_id' => $teams['Oriente']->id
+            'local_team_id' => $teams['oaxaca_norponiente']->id,
+            'guest_team_id' => $teams['oriente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Centro']->id,
-            'guest_team_id' => $teams['SurPacifico']->id
+            'local_team_id' => $teams['centro']->id,
+            'guest_team_id' => $teams['sur_pacifico']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Sur']->id,
-            'guest_team_id' => $teams['Oaxaca']->id
+            'local_team_id' => $teams['sur']->id,
+            'guest_team_id' => $teams['oaxaca']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Noroccidental']->id,
-            'guest_team_id' => $teams['Norte']->id
+            'local_team_id' => $teams['noroccidental']->id,
+            'guest_team_id' => $teams['norte']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Centro']->id,
-            'guest_team_id' => $teams['SurSierra']->id
+            'local_team_id' => $teams['centro']->id,
+            'guest_team_id' => $teams['sur_sierra']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Sur']->id,
-            'guest_team_id' => $teams['Occidente']->id
+            'local_team_id' => $teams['sur']->id,
+            'guest_team_id' => $teams['occidente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['OaxacaNorponiente']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['oaxaca_norponiente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Noroccidental']->id,
-            'guest_team_id' => $teams['Noreste']->id
+            'local_team_id' => $teams['noroccidental']->id,
+            'guest_team_id' => $teams['noreste']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Oaxaca']->id,
-            'guest_team_id' => $teams['SurPacifico']->id
+            'local_team_id' => $teams['oaxaca']->id,
+            'guest_team_id' => $teams['sur_pacifico']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Norte']->id,
-            'guest_team_id' => $teams['Oriente']->id
+            'local_team_id' => $teams['norte']->id,
+            'guest_team_id' => $teams['oriente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['Centro']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['centro']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Sur']->id,
-            'guest_team_id' => $teams['OaxacaNorponiente']->id
+            'local_team_id' => $teams['sur']->id,
+            'guest_team_id' => $teams['oaxaca_norponiente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Noroccidental']->id,
-            'guest_team_id' => $teams['SurSierra']->id
+            'local_team_id' => $teams['noroccidental']->id,
+            'guest_team_id' => $teams['sur_sierra']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Norte']->id,
-            'guest_team_id' => $teams['Occidente']->id
+            'local_team_id' => $teams['norte']->id,
+            'guest_team_id' => $teams['occidente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Oaxaca']->id,
-            'guest_team_id' => $teams['Noreste']->id
+            'local_team_id' => $teams['oaxaca']->id,
+            'guest_team_id' => $teams['noreste']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurPacifico']->id,
-            'guest_team_id' => $teams['Oriente']->id
+            'local_team_id' => $teams['sur_pacifico']->id,
+            'guest_team_id' => $teams['oriente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['Sur']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['sur']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Noroccidental']->id,
-            'guest_team_id' => $teams['Centro']->id
+            'local_team_id' => $teams['noroccidental']->id,
+            'guest_team_id' => $teams['centro']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Norte']->id,
-            'guest_team_id' => $teams['OaxacaNorponiente']->id
+            'local_team_id' => $teams['norte']->id,
+            'guest_team_id' => $teams['oaxaca_norponiente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurPacifico']->id,
-            'guest_team_id' => $teams['Occidente']->id
+            'local_team_id' => $teams['sur_pacifico']->id,
+            'guest_team_id' => $teams['occidente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Oriente']->id,
-            'guest_team_id' => $teams['Noreste']->id
+            'local_team_id' => $teams['oriente']->id,
+            'guest_team_id' => $teams['noreste']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['Noroccidental']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['noroccidental']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Oaxaca']->id,
-            'guest_team_id' => $teams['SurSierra']->id
+            'local_team_id' => $teams['oaxaca']->id,
+            'guest_team_id' => $teams['sur_sierra']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Norte']->id,
-            'guest_team_id' => $teams['Sur']->id
+            'local_team_id' => $teams['norte']->id,
+            'guest_team_id' => $teams['sur']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Oaxaca']->id,
-            'guest_team_id' => $teams['Centro']->id
+            'local_team_id' => $teams['oaxaca']->id,
+            'guest_team_id' => $teams['centro']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurPacifico']->id,
-            'guest_team_id' => $teams['OaxacaNorponiente']->id
+            'local_team_id' => $teams['sur_pacifico']->id,
+            'guest_team_id' => $teams['oaxaca_norponiente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Oriente']->id,
-            'guest_team_id' => $teams['SurSierra']->id
+            'local_team_id' => $teams['oriente']->id,
+            'guest_team_id' => $teams['sur_sierra']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Noreste']->id,
-            'guest_team_id' => $teams['Occidente']->id
+            'local_team_id' => $teams['noreste']->id,
+            'guest_team_id' => $teams['occidente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Oriente']->id,
-            'guest_team_id' => $teams['Centro']->id
+            'local_team_id' => $teams['oriente']->id,
+            'guest_team_id' => $teams['centro']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['Norte']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['norte']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurPacifico']->id,
-            'guest_team_id' => $teams['Sur']->id
+            'local_team_id' => $teams['sur_pacifico']->id,
+            'guest_team_id' => $teams['sur']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Oaxaca']->id,
-            'guest_team_id' => $teams['Noroccidental']->id
+            'local_team_id' => $teams['oaxaca']->id,
+            'guest_team_id' => $teams['noroccidental']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Noreste']->id,
-            'guest_team_id' => $teams['OaxacaNorponiente']->id
+            'local_team_id' => $teams['noreste']->id,
+            'guest_team_id' => $teams['oaxaca_norponiente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Occidente']->id,
-            'guest_team_id' => $teams['SurSierra']->id
+            'local_team_id' => $teams['occidente']->id,
+            'guest_team_id' => $teams['sur_sierra']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Noreste']->id,
-            'guest_team_id' => $teams['Sur']->id
+            'local_team_id' => $teams['noreste']->id,
+            'guest_team_id' => $teams['sur']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurPacifico']->id,
-            'guest_team_id' => $teams['Norte']->id
+            'local_team_id' => $teams['sur_pacifico']->id,
+            'guest_team_id' => $teams['norte']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['Oaxaca']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['oaxaca']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Oriente']->id,
-            'guest_team_id' => $teams['Noroccidental']->id
+            'local_team_id' => $teams['oriente']->id,
+            'guest_team_id' => $teams['noroccidental']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Occidente']->id,
-            'guest_team_id' => $teams['Centro']->id
+            'local_team_id' => $teams['occidente']->id,
+            'guest_team_id' => $teams['centro']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurSierra']->id,
-            'guest_team_id' => $teams['OaxacaNorponiente']->id
+            'local_team_id' => $teams['sur_sierra']->id,
+            'guest_team_id' => $teams['oaxaca_norponiente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Centro']->id,
-            'guest_team_id' => $teams['Noreste']->id
+            'local_team_id' => $teams['centro']->id,
+            'guest_team_id' => $teams['noreste']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Norte']->id,
-            'guest_team_id' => $teams['Oaxaca']->id
+            'local_team_id' => $teams['norte']->id,
+            'guest_team_id' => $teams['oaxaca']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Noroccidental']->id,
-            'guest_team_id' => $teams['SurPacifico']->id
+            'local_team_id' => $teams['noroccidental']->id,
+            'guest_team_id' => $teams['sur_pacifico']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['Sur']->id,
-            'guest_team_id' => $teams['Oriente']->id
+            'local_team_id' => $teams['sur']->id,
+            'guest_team_id' => $teams['oriente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['OaxacaNorponiente']->id,
-            'guest_team_id' => $teams['Occidente']->id
+            'local_team_id' => $teams['oaxaca_norponiente']->id,
+            'guest_team_id' => $teams['occidente']->id
         ]);
 
         QuizMatch::create([
-            'local_team_id' => $teams['SurFronterizo']->id,
-            'guest_team_id' => $teams['SurSierra']->id
+            'local_team_id' => $teams['sur_fronterizo']->id,
+            'guest_team_id' => $teams['sur_sierra']->id
         ]);
     }
 }

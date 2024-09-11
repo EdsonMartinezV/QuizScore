@@ -27,7 +27,7 @@ class Team extends Model
 
     protected function identifierName(): Attribute{
         return new Attribute(
-            get: fn () => str_replace([' ', "'"], '', iconv('utf-8', 'ASCII//TRANSLIT', $this->name))
+            get: fn () => strtolower(str_replace([' ', "'"], ['_', ''], iconv('utf-8', 'ASCII//TRANSLIT', $this->name)))
         );
     }
 
