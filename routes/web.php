@@ -14,10 +14,6 @@ Route::get('/inicio', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->prefix('/pacientes')->controller(PatientController::class)->group(function () {
-    Route::get('/', 'jsonIndex')->name('patients.jsonIndex');
-});
-
 /* Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

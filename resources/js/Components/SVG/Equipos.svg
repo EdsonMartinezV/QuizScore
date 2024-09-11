@@ -1,5 +1,4 @@
-<template>
-  <svg id="b" xmlns="http://www.w3.org/2000/svg" width="141.73" height="273.16" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 283.46 273.16">
+<svg id="b" xmlns="http://www.w3.org/2000/svg" width="283.46" height="273.16" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 283.46 273.16">
   <defs>
     <filter id="i" filterUnits="userSpaceOnUse">
     <feOffset dx="0" dy="0"/>
@@ -426,5 +425,3 @@
 </g>
 </g>
 </svg>
-</template>
-

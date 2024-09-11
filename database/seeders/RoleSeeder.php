@@ -16,6 +16,10 @@ class RoleSeeder extends Seeder
             'description' => 'admin'
         ]);
 
+        Role::create([
+            'description' => 'referee'
+        ]);
+
         $adminRole = Role::find(1);
         $adminRole->users()->attach(1);
     }

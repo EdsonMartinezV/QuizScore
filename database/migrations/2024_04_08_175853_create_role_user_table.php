@@ -13,17 +13,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('role_user', function (Blueprint $table) {
-            $systemDB = config('database.connections.mysqlsystem.database');
-
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')
-                ->references('Pk_Usuario_Login')
-                ->on(new Expression("$systemDB.Tbl_Usuario_Login"))
-                ->cascadeOnUpdate();
-            /* $table->foreignId('user_id')
+            $table->foreignId('user_id')
                 ->constrained()
-                ->cascadeOnUpdate(); */
+                ->cascadeOnUpdate();
             $table->foreignId('role_id')
                 ->constrained()
                 ->cascadeOnUpdate();

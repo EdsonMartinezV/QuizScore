@@ -10,13 +10,11 @@ class Role extends Model
 {
     use HasFactory;
 
-    protected $connection = 'mysql';
-
     protected $fillable = [
         'description'
     ];
 
     public function users(): BelongsToMany{
-        return $this->belongsToMany(User::class, env('DB_DATABASE') . '.role_user', 'role_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

@@ -14,21 +14,13 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $connection = 'mysqlsystem';
-    protected $table = 'ISSTECH_SYSTEM.Tbl_Usuario_Login';
-    protected $primaryKey = 'Pk_Usuario_Login';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'paternal_surname',
-        'maternal_surname',
-        'email',
-        'professional_license',
+        'nickname',
         'password',
     ];
 
@@ -38,7 +30,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'Password',
         'remember_token',
     ];
 
@@ -55,23 +46,9 @@ class User extends Authenticatable
     }
 
     protected $appends = [
-        'full_name',
-        'professional_license',
         'is_admin',
         'is_able_to'
     ];
-
-    protected function fullName(): Attribute{
-        return new Attribute(
-            get: fn () => "$this->Nombre_Usuario $this->Apellido_Paterno_Usuario $this->Apellido_Materno_Usuario"
-        );
-    }
-
-    protected function professionalLicense(): Attribute{
-        return new Attribute(
-            get: fn () => $this->Pk_Usuario_Login === 2453 ? '13851640' : $this->doctor->Cedula_Medico
-        );
-    }
 
     protected function isAdmin(): Attribute{
         return new Attribute(
@@ -83,15 +60,15 @@ class User extends Authenticatable
 
     protected function isAbleTo(): Attribute{
         return new Attribute(
-            get: fn () => $this->isAbleToArray()
+            get: fn () => [
+                'users' => [
+                    'create' => $this->can('create', User::class)
+                ]
+            ]
         );
     }
 
     public function roles(): BelongsToMany{
-        return $this->belongsToMany(Role::class, env('DB_DATABASE') . '.role_user', 'user_id', 'role_id')->withTimestamps();
-    }
-
-    protected function isAbleToArray(): array{
-        return [];
+        return $this->belongsToMany(Role::class)->withTimestamps();
     }
 }
