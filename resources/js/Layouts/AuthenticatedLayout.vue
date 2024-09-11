@@ -33,7 +33,7 @@ const showingNavigationDropdown = ref(false);
                                     Inicio
                                 </NavLink>
                                 <NavLink v-if="$page.props.auth.user.is_able_to.users.create" :href="route('register')" :active="route().current('register')">
-                                    Usuarios
+                                    Crear Usuario
                                 </NavLink>
                             </div>
                         </div>
@@ -119,7 +119,7 @@ const showingNavigationDropdown = ref(false);
                             Inicio
                         </ResponsiveNavLink>
                         <ResponsiveNavLink v-if="$page.props.auth.user.is_able_to.users.create" :href="route('register')" :active="route().current('register')">
-                            Usuarios
+                            Crear Usuario
                         </ResponsiveNavLink>
                     </div>
 
