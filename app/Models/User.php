@@ -47,6 +47,7 @@ class User extends Authenticatable
 
     protected $appends = [
         'is_admin',
+        'is_referee',
         'is_able_to'
     ];
 
@@ -54,6 +55,14 @@ class User extends Authenticatable
         return new Attribute(
             get: fn () => $this->roles->filter(function ($role) {
                 return $role->description === 'admin';
+            })->count() === 1
+        );
+    }
+
+    protected function isReferee(): Attribute{
+        return new Attribute(
+            get: fn () => $this->roles->filter(function ($role) {
+                return $role->description === 'referee';
             })->count() === 1
         );
     }

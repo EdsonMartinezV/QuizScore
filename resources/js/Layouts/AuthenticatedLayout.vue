@@ -32,6 +32,12 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Inicio
                                 </NavLink>
+                                <NavLink :href="route('teams.index')" :active="route().current('teams.*')">
+                                    Equipos
+                                </NavLink>
+                                <NavLink :href="route('quizMatches.index')" :active="route().current('quizMatches.*')">
+                                    Competencias
+                                </NavLink>
                                 <NavLink v-if="$page.props.auth.user.is_able_to.users.create" :href="route('register')" :active="route().current('register')">
                                     Crear Usuario
                                 </NavLink>
@@ -117,6 +123,12 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Inicio
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('teams.index')" :active="route().current('teams.*')">
+                            Equipos
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('quizMatches.index')" :active="route().current('quizMatches.*')">
+                            Competencias
                         </ResponsiveNavLink>
                         <ResponsiveNavLink v-if="$page.props.auth.user.is_able_to.users.create" :href="route('register')" :active="route().current('register')">
                             Crear Usuario
