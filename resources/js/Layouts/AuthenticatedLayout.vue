@@ -5,9 +5,10 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 
-const showingNavigationDropdown = ref(false);
+const showingNavigationDropdown = ref(false)
+const user = usePage().props.auth.user;
 </script>
 
 <template>
@@ -35,10 +36,10 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('teams.index')" :active="route().current('teams.*')">
                                     Equipos
                                 </NavLink>
-                                <NavLink :href="route('quizMatches.index')" :active="route().current('quizMatches.*')">
+                                <NavLink v-if="user.is_able_to.quiz_matches.view_any" :href="route('quizMatches.index')" :active="route().current('quizMatches.*')">
                                     Competencias
                                 </NavLink>
-                                <NavLink v-if="$page.props.auth.user.is_able_to.users.create" :href="route('register')" :active="route().current('register')">
+                                <NavLink v-if="user.is_able_to.users.create" :href="route('register')" :active="route().current('register')">
                                     Crear Usuario
                                 </NavLink>
                             </div>
@@ -54,7 +55,7 @@ const showingNavigationDropdown = ref(false);
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {{ $page.props.auth.user.nickname }}
+                                                {{ user.nickname }}
 
                                                 <svg
                                                     class="ms-2 -me-0.5 h-4 w-4"
@@ -127,10 +128,10 @@ const showingNavigationDropdown = ref(false);
                         <ResponsiveNavLink :href="route('teams.index')" :active="route().current('teams.*')">
                             Equipos
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('quizMatches.index')" :active="route().current('quizMatches.*')">
+                        <ResponsiveNavLink v-if="user.is_able_to.quiz_matches.view_any" :href="route('quizMatches.index')" :active="route().current('quizMatches.*')">
                             Competencias
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink v-if="$page.props.auth.user.is_able_to.users.create" :href="route('register')" :active="route().current('register')">
+                        <ResponsiveNavLink v-if="user.is_able_to.users.create" :href="route('register')" :active="route().current('register')">
                             Crear Usuario
                         </ResponsiveNavLink>
                     </div>
@@ -139,7 +140,7 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                         <div class="px-4">
                             <div class="font-medium text-base text-gray-800 dark:text-gray-200">
-                                {{ $page.props.auth.user.nickname }}
+                                {{ user.nickname }}
                             </div>
                         </div>
 

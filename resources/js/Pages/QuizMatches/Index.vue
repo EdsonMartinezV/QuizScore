@@ -19,6 +19,14 @@ const props = defineProps({
   matchTypes: {
     type: Array,
     required: true
+  },
+  modalTitle: {
+    type: String,
+    required: false
+  },
+  modalMessage: {
+    type: String,
+    required: false
   }
 })
 
@@ -57,11 +65,10 @@ const currentMatch = ref(null)
 const scoreForm = useForm({
   _method: 'patch',
   id: '',
-  local_team_id: '',
   local_score: '',
-  guest_team_id: '',
   guest_score: '',
 })
+
 function submitScore() {
   scoreForm.post(route('quizMatches.update'))
 }
@@ -71,8 +78,6 @@ function closeScoreForm() {
 function prepareScoreForm(match) {
   currentMatch.value = match
   scoreForm.id = match.id
-  scoreForm.local_team_id = match.local_team_id
-  scoreForm.guest_team_id = match.guest_team_id
   showScoreForm.value = true
 };
 </script>
@@ -112,6 +117,7 @@ function prepareScoreForm(match) {
                 v-model="scoreForm.guest_score"
                 required />
               <InputError class="mt-2" :message="scoreForm.errors.guest_score" />
+              <InputError class="mt-2" :message="scoreForm.errors.id" />
             </div>
           </div>
 
@@ -128,8 +134,8 @@ function prepareScoreForm(match) {
     <!-- ALERT MODAL -->
     <Modal :show="showModal" @close="closeModal">
       <div class="p-6">
-        <h2 class="text-lg font-medium text-gray-900">{{ props.modalTitle != null ? props.modalTitle : '' }}</h2>
-        <p class="mt-1 text-sm text-gray-600">{{ props.modalMessage != null ? props.modalMessage : '' }}</p>
+        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-200">{{ props.modalTitle != null ? props.modalTitle : '' }}</h2>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-100">{{ props.modalMessage != null ? props.modalMessage : '' }}</p>
           <div class="mt-6 flex justify-end">
             <SecondaryButton @click="closeModal"> Cerrar </SecondaryButton>
           </div>
@@ -152,9 +158,11 @@ function prepareScoreForm(match) {
         </div>
 
         <!-- MATCHES CONTAINERS -->
-        <div v-for="match in filteredMatches" :key="match.id" @click="prepareScoreForm(match)" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-4 flex gap-2 justify-around hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+        <div v-for="match in filteredMatches" :key="match.id" @click="prepareScoreForm(match)" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-4 flex gap-2 justify-around hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 active:ring-offset-2 dark:active:ring-offset-gray-800">
           <p class="text-gray-900 dark:text-gray-100">{{ match.local_team.name }}</p>
+          <p v-if="match.local_score" class="text-gray-900 dark:text-gray-100">{{ match.local_score }}</p>
           <p class="text-gray-900 dark:text-gray-100">VS</p>
+          <p v-if="match.guest_score" class="text-gray-900 dark:text-gray-100">{{ match.guest_score }}</p>
           <p class="text-gray-900 dark:text-gray-100">{{ match.guest_team.name }}</p>
         </div>
 

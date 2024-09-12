@@ -72,6 +72,12 @@ class User extends Authenticatable
             get: fn () => [
                 'users' => [
                     'create' => $this->can('create', User::class)
+                ],
+                'quiz_matches' => [
+                    'view_any' => $this->can('viewAny', QuizMatch::class),
+                    'create' => $this->can('create', QuizMatch::class),
+                    'update' => $this->can('update', QuizMatch::class),
+                    'delete' => $this->can('delete', QuizMatch::class),
                 ]
             ]
         );

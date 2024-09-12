@@ -12,6 +12,7 @@ class QuizMatch extends Model
     use HasFactory;
 
     public $fillable = [
+        'id',
         'local_team_id',
         'local_score',
         'guest_team_id',
