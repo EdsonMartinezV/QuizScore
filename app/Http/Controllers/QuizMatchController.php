@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\QuizMatchRequest;
 use App\Http\Requests\ScoreRequest;
 use App\MatchType;
 use App\Models\QuizMatch;
+use App\Models\Team;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -18,7 +20,10 @@ class QuizMatchController extends Controller
 
         return Inertia::render('QuizMatches/Index', [
             'matches' => QuizMatch::orderBy('updated_at', 'desc')->with(['localTeam', 'guestTeam'])->get(),
-            'matchTypes' => MatchType::cases(),
+            'teams' => Team::all(),
+            'matchTypes' => array_filter(MatchType::cases(), function ($match){
+                return $match->value != 'regular';
+            }),
             'showModal' => array_key_exists('showModal', $request->query()),
             'modalTitle' => array_key_exists('modalTitle', $request->query()) ? $request->query('modalTitle') : null,
             'modalMessage' => array_key_exists('modalMessage', $request->query()) ? $request->query('modalMessage') : null
@@ -40,22 +45,34 @@ class QuizMatchController extends Controller
             'won_matches' => $validated['local_score'] > $validated['guest_score'] ? ++$localTeam->won_matches : $localTeam->won_matches,
             'lost_matches' => $validated['local_score'] < $validated['guest_score'] ? ++$localTeam->lost_matches : $localTeam->lost_matches,
             'drawn_matches' => $validated['local_score'] == $validated['guest_score'] ? ++$localTeam->drawn_matches : $localTeam->drawn_matches,
-            'scored_points' => $localTeam->scored_points + $validated['local_score'],
-            'conceded_points' => $localTeam->conceded_points + $validated['guest_score']
+            'scored_points' => $match->type == 'regular' ? $localTeam->scored_points + $validated['local_score'] : $localTeam->scored_points,
+            'conceded_points' => $match->type == 'regular' ? $localTeam->conceded_points + $validated['guest_score'] : $localTeam->conceded_points
         ]);
 
         $guestTeam->update([
             'won_matches' => $validated['guest_score'] > $validated['local_score'] ? ++$guestTeam->won_matches : $guestTeam->won_matches,
             'lost_matches' => $validated['guest_score'] < $validated['local_score'] ? ++$guestTeam->lost_matches : $guestTeam->lost_matches,
             'drawn_matches' => $validated['guest_score'] == $validated['local_score'] ? ++$guestTeam->drawn_matches : $guestTeam->drawn_matches,
-            'scored_points' => $guestTeam->scored_points + $validated['guest_score'],
-            'conceded_points' => $guestTeam->conceded_points + $validated['local_score']
+            'scored_points' => $match->type == 'regular' ? $guestTeam->scored_points + $validated['guest_score'] : $guestTeam->scored_points,
+            'conceded_points' => $match->type == 'regular' ? $guestTeam->conceded_points + $validated['local_score'] : $guestTeam->conceded_points
         ]);
 
         return to_route('quizMatches.index', [
             'showModal' => true,
             'modalTitle' => 'Puntuaciones registradas!',
             'modalMessage' => 'EBN Tuxtla 2024'
+        ]);
+    }
+
+    public function store(QuizMatchRequest $request): RedirectResponse{
+        $validated = $request->validated();
+
+        QuizMatch::create($validated);
+
+        return to_route('quizMatches.index', [
+            'showModal' => true,
+            'modalTitle' => 'Competencia creada!',
+            'modalMessage' => 'Ya casi tenemos campeón'
         ]);
     }
 }

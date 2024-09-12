@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\MatchType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,16 +17,33 @@ class QuizMatch extends Model
         'local_team_id',
         'local_score',
         'guest_team_id',
-        'guest_score'
+        'guest_score',
+        'type',
+        'downloaded'
     ];
 
     protected $appends = [
-        'search_string'
+        'search_string',
+        'locale_type'
     ];
 
     protected function searchString(): Attribute{
         return new Attribute(
             get: fn () => $this->localTeam->identifier_name . '_' . $this->guestTeam->identifier_name
+        );
+    }
+
+    protected function localeType(): Attribute{
+        return new Attribute(
+            get: function () {
+                $types = [
+                    'regular' => 'Regular',
+                    'quarter_final' => 'Cuartos de final',
+                    'semi_final' => 'Semifinal',
+                    'final' => 'Final'
+                ];
+                return $types[$this->type];
+            }
         );
     }
 

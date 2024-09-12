@@ -16,6 +16,10 @@ const props = defineProps({
     type: Array,
     required: true
   },
+  teams: {
+    type: Array,
+    required: true
+  },
   matchTypes: {
     type: Array,
     required: true
@@ -59,7 +63,7 @@ watch(q, (newQ) => {
   }
 })
 
-/* SCORE MODAL */
+/* SCORE FORM */
 const showScoreForm = ref(false)
 const currentMatch = ref(null)
 const scoreForm = useForm({
@@ -82,6 +86,21 @@ function prepareScoreForm(match) {
     showScoreForm.value = true
   }
 };
+
+/* CREATE FORM */
+const showCreateForm = ref(false)
+const createForm = useForm({
+  local_team_id: '',
+  guest_team_id: '',
+  type: ''
+})
+
+function submitCreate() {
+  createForm.post(route('quizMatches.store'))
+}
+function closeCreateForm() {
+  showCreateForm.value = false
+};
 </script>
 
 <template>
@@ -91,6 +110,55 @@ function prepareScoreForm(match) {
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Competencias</h2>
     </template>
+
+    <!-- CREATE MODAL -->
+    <Modal :show="showCreateForm" @close="closeCreateForm">
+      <div class="p-6">
+        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-200">Nueva competencia</h2>
+        <form @submit.prevent="submitCreate" class="mt-4">
+          <div class="flex gap-2">
+            <div class="w-full">
+              <InputLabel for="local_team_id" value="Equipo 1"/>
+              <SelectInput
+                id="local_team_id"
+                class="w-full mt-1 block"
+                v-model="createForm.local_team_id"
+                :items="props.teams"
+                :display-fields="['name']" />
+              <InputError class="mt-2" :message="createForm.errors.local_team_id"/>
+            </div>
+            <div class="w-full">
+              <InputLabel for="guest_team_id" value="Equipo 2"/>
+              <SelectInput
+                id="guest_team_id"
+                class="w-full mt-1 block"
+                v-model="createForm.guest_team_id"
+                :items="props.teams"
+                :display-fields="['name']" />
+              <InputError class="mt-2" :message="createForm.errors.guest_team_id"/>
+            </div>
+          </div>
+
+          <div class="w-full mt-2">
+            <InputLabel for="type" value="Ronda"/>
+            <SelectInput
+              id="type"
+              class="w-full mt-1 block"
+              v-model="createForm.type"
+              :is-from-d-b="false"
+              :items="props.matchTypes" />
+            <InputError class="mt-2" :message="createForm.errors.type"/>
+          </div>
+
+          <div class="mt-6 flex justify-end">
+            <SecondaryButton @click="closeCreateForm"> Cerrar </SecondaryButton>
+            <PrimaryButton class="ms-4" :class="{ 'opacity-25': createForm.processing }" :disabled="createForm.processing">
+                Guardar
+            </PrimaryButton>
+          </div>
+        </form>
+      </div>
+    </Modal>
 
     <!-- SCORE MODAL -->
     <Modal :show="showScoreForm" @close="closeScoreForm">
@@ -149,6 +217,16 @@ function prepareScoreForm(match) {
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-2">
 
+        <!-- CREATE CONTAINER -->
+        <div v-if="user.is_able_to.quiz_matches.create" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-2 flex gap-2 justify-start">
+          <PrimaryButton @click="showCreateForm = true" class="flex gap-2">
+            Nueva Competencia
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </PrimaryButton>
+        </div>
+
         <!-- SEARCH CONTAINER -->
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-2 flex gap-2 justify-around">
           <TextInput
@@ -157,12 +235,17 @@ function prepareScoreForm(match) {
             class="w-full"
             v-model="q"
             placeholder="Buscar" />
-          <PrimaryButton @click="resetQ">Reestablecer</PrimaryButton>
+          <PrimaryButton @click="resetQ" class="sm:!px-12">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
+            </svg>
+          </PrimaryButton>
         </div>
 
         <!-- MATCHES CONTAINERS -->
         <div v-for="match in filteredMatches" :key="match.id" class="flex gap-2">
           <div @click="prepareScoreForm(match)" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-tr-lg rounded-br-lg sm:rounded-lg p-4 flex flex-col gap-1 justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 w-full">
+            <h3 v-if="match.type != 'regular'" class="text-lg font-bold text-pink-700 dark:text-pink-600 self-start">{{ match.locale_type }}</h3>
             <div class="flex w-full justify-between items-center">
               <p :class="{'text-teal-500': match.local_score > match.guest_score, 'dark:text-teal-300': match.local_score > match.guest_score}" class="text-gray-800 dark:text-gray-300 font-bold text-left">{{ match.local_team.name }}</p>
               <p v-if="match.local_score != null" class="text-teal-500 dark:text-teal-300 bg-gray-100 dark:bg-gray-900 px-2 py-1 text-center rounded-md">{{ match.local_score }}</p>

@@ -74,11 +74,11 @@ function closeModal() {
                 <tr v-for="(team, index) in props.teams" :key="team.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <th :class="[index < 8 ? 'text-teal-500 dark:text-teal-300' : 'text-gray-900 dark:text-white']" class="px-3 py-4 font-bold whitespace-nowrap" scope="row">{{ team.name }}</th>
                   <td class="p-2 text-center">{{ team.played_matches }}</td>
-                  <td :class="[index < 8 ? 'text-yellow-600 dark:text-amber-400' : '']" class="p-2 text-center">{{ team.won_matches }}</td>
+                  <td :class="[index < 8 ? 'text-pink-700 dark:text-pink-600' : '']" class="p-2 text-center font-bold">{{ team.won_matches }}</td>
                   <td class="p-2 text-center">{{ team.lost_matches }}</td>
-                  <td :class="[index < 8 ? 'text-yellow-600 dark:text-amber-400' : '']" class="p-2 text-center">{{ team.scored_points }}</td>
+                  <td :class="[index < 8 ? 'text-yellow-600 dark:text-amber-400' : '']" class="p-2 text-center font-bold">{{ team.scored_points }}</td>
                   <td class="p-2 text-center">{{ team.conceded_points }}</td>
-                  <td :class="[index < 8 ? 'text-yellow-600 dark:text-amber-400' : '']" class="p-2 text-center">{{ team.point_spread }}</td>
+                  <td :class="[index < 8 ? 'text-yellow-600 dark:text-amber-400' : '']" class="p-2 text-center font-bold">{{ team.point_spread }}</td>
                 </tr>
               </tbody>
             </table>
