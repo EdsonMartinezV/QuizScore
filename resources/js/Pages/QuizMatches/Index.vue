@@ -76,9 +76,11 @@ function closeScoreForm() {
   showScoreForm.value = false
 }
 function prepareScoreForm(match) {
-  currentMatch.value = match
-  scoreForm.id = match.id
-  showScoreForm.value = true
+  if (user.is_able_to.quiz_matches.update) {
+    currentMatch.value = match
+    scoreForm.id = match.id
+    showScoreForm.value = true
+  }
 };
 </script>
 
@@ -104,7 +106,8 @@ function prepareScoreForm(match) {
                 step="1"
                 class="block w-full mt-1"
                 v-model="scoreForm.local_score"
-                required />
+                required
+                autofocus />
               <InputError class="mt-2" :message="scoreForm.errors.local_score" />
             </div>
             <div class="w-full">
@@ -158,12 +161,24 @@ function prepareScoreForm(match) {
         </div>
 
         <!-- MATCHES CONTAINERS -->
-        <div v-for="match in filteredMatches" :key="match.id" @click="prepareScoreForm(match)" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-4 flex gap-2 justify-around hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 active:ring-offset-2 dark:active:ring-offset-gray-800">
-          <p class="text-gray-800 dark:text-gray-300 font-bold">{{ match.local_team.name }}</p>
-          <p v-if="match.local_score" class="text-gray-900 dark:text-gray-100">{{ match.local_score }}</p>
-          <p class="text-teal-900 dark:text-teal-300">VS</p>
-          <p v-if="match.guest_score" class="text-gray-900 dark:text-gray-100">{{ match.guest_score }}</p>
-          <p class="text-gray-800 dark:text-gray-300 font-bold">{{ match.guest_team.name }}</p>
+        <div v-for="match in filteredMatches" :key="match.id" class="flex gap-2">
+          <div @click="prepareScoreForm(match)" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-tr-lg rounded-br-lg sm:rounded-lg p-4 flex flex-col gap-1 justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 w-full">
+            <div class="flex w-full justify-between items-center">
+              <p :class="{'text-teal-500': match.local_score > match.guest_score, 'dark:text-teal-300': match.local_score > match.guest_score}" class="text-gray-800 dark:text-gray-300 font-bold text-left">{{ match.local_team.name }}</p>
+              <p v-if="match.local_score != null" class="text-teal-500 dark:text-teal-300 bg-gray-100 dark:bg-gray-900 px-2 py-1 text-center rounded-md">{{ match.local_score }}</p>
+            </div>
+            <div class="flex w-full justify-between items-center">
+              <p :class="{'text-teal-500': match.guest_score > match.local_score, 'dark:text-teal-300': match.guest_score > match.local_score}" class="text-gray-800 dark:text-gray-300 font-bold text-right">{{ match.guest_team.name }}</p>
+              <p v-if="match.guest_score != null" class="text-teal-500 dark:text-teal-300 bg-gray-100 dark:bg-gray-900 px-2 py-1 text-center rounded-md">{{ match.guest_score }}</p>
+            </div>
+          </div>
+          <div v-if="user.is_able_to.quiz_matches.generate_pic" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-tl-lg rounded-bl-lg sm:rounded-lg px-4 flex gap-2 justify-around items-center w-fit">
+            <SecondaryButton v-if="match.local_score != null && match.guest_score != null" @click.stop="" class="!p-2 !border-none">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fbbf24" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+              </svg>
+            </SecondaryButton>
+          </div>
         </div>
 
       </div>

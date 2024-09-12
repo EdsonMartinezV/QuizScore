@@ -40,16 +40,16 @@ class QuizMatchController extends Controller
             'won_matches' => $validated['local_score'] > $validated['guest_score'] ? ++$localTeam->won_matches : $localTeam->won_matches,
             'lost_matches' => $validated['local_score'] < $validated['guest_score'] ? ++$localTeam->lost_matches : $localTeam->lost_matches,
             'drawn_matches' => $validated['local_score'] == $validated['guest_score'] ? ++$localTeam->drawn_matches : $localTeam->drawn_matches,
-            'points_scored' => $validated['local_score'],
-            'points_conceded' => $validated['guest_score']
+            'scored_points' => $localTeam->scored_points + $validated['local_score'],
+            'conceded_points' => $localTeam->conceded_points + $validated['guest_score']
         ]);
 
         $guestTeam->update([
             'won_matches' => $validated['guest_score'] > $validated['local_score'] ? ++$guestTeam->won_matches : $guestTeam->won_matches,
             'lost_matches' => $validated['guest_score'] < $validated['local_score'] ? ++$guestTeam->lost_matches : $guestTeam->lost_matches,
             'drawn_matches' => $validated['guest_score'] == $validated['local_score'] ? ++$guestTeam->drawn_matches : $guestTeam->drawn_matches,
-            'points_scored' => $validated['guest_score'],
-            'points_conceded' => $validated['local_score']
+            'scored_points' => $guestTeam->scored_points + $validated['guest_score'],
+            'conceded_points' => $guestTeam->conceded_points + $validated['local_score']
         ]);
 
         return to_route('quizMatches.index', [
