@@ -33,7 +33,7 @@ const user = usePage().props.auth.user;
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Inicio
                                 </NavLink>
-                                <NavLink :href="route('teams.index')" :active="route().current('teams.*')">
+                                <NavLink v-if="user.is_able_to.teams.view_any" :href="route('teams.index')" :active="route().current('teams.*')">
                                     Equipos
                                 </NavLink>
                                 <NavLink v-if="user.is_able_to.quiz_matches.view_any" :href="route('quizMatches.index')" :active="route().current('quizMatches.*')">
@@ -125,7 +125,7 @@ const user = usePage().props.auth.user;
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Inicio
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('teams.index')" :active="route().current('teams.*')">
+                        <ResponsiveNavLink v-if="user.is_able_to.teams.view_any" :href="route('teams.index')" :active="route().current('teams.*')">
                             Equipos
                         </ResponsiveNavLink>
                         <ResponsiveNavLink v-if="user.is_able_to.quiz_matches.view_any" :href="route('quizMatches.index')" :active="route().current('quizMatches.*')">

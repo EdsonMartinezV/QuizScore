@@ -159,11 +159,11 @@ function prepareScoreForm(match) {
 
         <!-- MATCHES CONTAINERS -->
         <div v-for="match in filteredMatches" :key="match.id" @click="prepareScoreForm(match)" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-4 flex gap-2 justify-around hover:bg-gray-50 dark:hover:bg-gray-700 transition ease-in-out duration-150 active:ring-offset-2 dark:active:ring-offset-gray-800">
-          <p class="text-gray-900 dark:text-gray-100">{{ match.local_team.name }}</p>
+          <p class="text-gray-800 dark:text-gray-300 font-bold">{{ match.local_team.name }}</p>
           <p v-if="match.local_score" class="text-gray-900 dark:text-gray-100">{{ match.local_score }}</p>
-          <p class="text-gray-900 dark:text-gray-100">VS</p>
+          <p class="text-teal-900 dark:text-teal-300">VS</p>
           <p v-if="match.guest_score" class="text-gray-900 dark:text-gray-100">{{ match.guest_score }}</p>
-          <p class="text-gray-900 dark:text-gray-100">{{ match.guest_team.name }}</p>
+          <p class="text-gray-800 dark:text-gray-300 font-bold">{{ match.guest_team.name }}</p>
         </div>
 
       </div>
