@@ -17,17 +17,24 @@ class Team extends Model
         'won_matches',
         'lost_matches',
         'drawn_matches',
-        'points_scored',
-        'points_conceded'
+        'scored_points',
+        'conceded_points'
     ];
 
     protected $appends = [
-        'identifier_name'
+        'identifier_name',
+        'played_matches'
     ];
 
     protected function identifierName(): Attribute{
         return new Attribute(
             get: fn () => strtolower(str_replace([' ', "'"], ['_', ''], iconv('utf-8', 'ASCII//TRANSLIT', $this->name)))
+        );
+    }
+
+    protected function playedMatches(): Attribute{
+        return new Attribute(
+            get: fn () => $this->won_matches + $this->lost_matches
         );
     }
 

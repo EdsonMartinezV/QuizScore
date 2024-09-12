@@ -59,22 +59,26 @@ function closeModal() {
 
         <!-- TEAMS CONTAINERS -->
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-4 flex gap-2 justify-around">
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <div class="relative overflow-x-auto w-full shadow-md rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
-                <th scope="col" class="p-2"></th>
-                <th scope="col" class="p-2">Juegos ganados</th>
-                <th scope="col" class="p-2">Puntos +</th>
-                <th scope="col" class="p-2">Juegos perdidos</th>
-                <th scope="col" class="p-2">Puntos -</th>
+              <thead class="text-xs text-gray-700 dark:text-gray-400 uppercase bg-gray-100 dark:bg-gray-900 text-center">
+                <th scope="col" class="px-2 py-3"></th>
+                <th scope="col" class="px-2 py-3">Juegos</th>
+                <th scope="col" class="px-2 py-3">Ganados</th>
+                <th scope="col" class="px-2 py-3">Perdidos</th>
+                <th scope="col" class="px-2 py-3 whitespace-nowrap">Puntos +</th>
+                <th scope="col" class="px-2 py-3 whitespace-nowrap">Puntos -</th>
+                <th scope="col" class="px-2 py-3">Diferencia</th>
               </thead>
               <tbody>
-                <tr v-for="team in props.teams" :key="team.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ team.name }}</th>
-                  <td class="p-2 text-center">{{ team.won_matches }}</td>
-                  <td class="p-2 text-center">{{ team.points_scored }}</td>
+                <tr v-for="(team, index) in props.teams" :key="team.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <th :class="[index < 8 ? 'text-teal-500 dark:text-teal-300' : 'text-gray-900 dark:text-white']" class="px-3 py-4 font-bold whitespace-nowrap" scope="row">{{ team.name }}</th>
+                  <td class="p-2 text-center">{{ team.played_matches }}</td>
+                  <td :class="[index < 8 ? 'text-yellow-600 dark:text-amber-400' : '']" class="p-2 text-center">{{ team.won_matches }}</td>
                   <td class="p-2 text-center">{{ team.lost_matches }}</td>
-                  <td class="p-2 text-center">{{ team.points_conceded }}</td>
+                  <td :class="[index < 8 ? 'text-yellow-600 dark:text-amber-400' : '']" class="p-2 text-center">{{ team.scored_points }}</td>
+                  <td class="p-2 text-center">{{ team.conceded_points }}</td>
+                  <td :class="[index < 8 ? 'text-yellow-600 dark:text-amber-400' : '']" class="p-2 text-center">{{ team.point_spread }}</td>
                 </tr>
               </tbody>
             </table>

@@ -17,8 +17,9 @@ return new class extends Migration
             $table->integer('won_matches')->default(0);
             $table->integer('lost_matches')->default(0);
             $table->integer('drawn_matches')->default(0);
-            $table->integer('points_scored')->default(0);
-            $table->integer('points_conceded')->default(0);
+            $table->integer('scored_points')->default(0);
+            $table->integer('conceded_points')->default(0);
+            $table->integer('point_spread')->storedAs('scored_points - conceded_points');
             $table->timestamps();
         });
     }
