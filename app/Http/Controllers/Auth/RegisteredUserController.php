@@ -53,6 +53,10 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('quizMatches.index', [
+            'showModal' => true,
+            'modalTitle' => 'Nuevo usuario!',
+            'modalMessage' => 'EBN Tuxtla 2024'
+        ], absolute: false));
     }
 }
