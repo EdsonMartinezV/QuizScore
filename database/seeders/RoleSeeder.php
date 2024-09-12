@@ -20,7 +20,17 @@ class RoleSeeder extends Seeder
             'description' => 'referee'
         ]);
 
+        Role::create([
+            'description' => 'downloader'
+        ]);
+
         $adminRole = Role::find(1);
         $adminRole->users()->attach(1);
+
+        $refereeRole = Role::find(2);
+        $refereeRole->users()->attach(2);
+
+        $downloaderRole = Role::find(3);
+        $downloaderRole->users()->attach(3);
     }
 }

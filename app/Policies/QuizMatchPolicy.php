@@ -23,7 +23,7 @@ class QuizMatchPolicy
     }
 
     public function viewAny(User $user): bool{
-        return $user->is_referee;
+        return $user->is_referee || $user->is_downloader;
     }
 
     public function create(User $user): bool{
@@ -36,5 +36,9 @@ class QuizMatchPolicy
 
     public function delete(User $user): bool{
         return false;
+    }
+
+    public function generatePic(User $user): bool{
+        return $user->is_downloader;
     }
 }

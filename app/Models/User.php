@@ -48,6 +48,7 @@ class User extends Authenticatable
     protected $appends = [
         'is_admin',
         'is_referee',
+        'is_downloader',
         'is_able_to'
     ];
 
@@ -67,6 +68,14 @@ class User extends Authenticatable
         );
     }
 
+    protected function isDownloader(): Attribute{
+        return new Attribute(
+            get: fn () => $this->roles->filter(function ($role) {
+                return $role->description === 'downloader';
+            })->count() === 1
+        );
+    }
+
     protected function isAbleTo(): Attribute{
         return new Attribute(
             get: fn () => [
@@ -78,6 +87,7 @@ class User extends Authenticatable
                     'create' => $this->can('create', QuizMatch::class),
                     'update' => $this->can('update', QuizMatch::class),
                     'delete' => $this->can('delete', QuizMatch::class),
+                    'generate_pic' => $this->can('generatePic', QuizMatch::class),
                 ],
                 'teams' => [
                     'view_any' => $this->can('viewAny', Team::class),
