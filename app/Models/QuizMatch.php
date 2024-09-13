@@ -24,12 +24,26 @@ class QuizMatch extends Model
 
     protected $appends = [
         'search_string',
-        'locale_type'
+        'locale_type',
+        'local_team_id_name',
+        'guest_team_id_name'
     ];
 
     protected function searchString(): Attribute{
         return new Attribute(
             get: fn () => $this->localTeam->identifier_name . '_' . $this->guestTeam->identifier_name
+        );
+    }
+
+    protected function localTeamIdName(): Attribute{
+        return new Attribute(
+            get: fn () => $this->localTeam->identifier_name
+        );
+    }
+
+    protected function guestTeamIdName(): Attribute{
+        return new Attribute(
+            get: fn () => $this->guestTeam->identifier_name
         );
     }
 
