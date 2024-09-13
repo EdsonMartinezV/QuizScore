@@ -13,6 +13,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
+use Ilovepdf\Ilovepdf;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -107,6 +109,16 @@ class QuizMatchController extends Controller
             storage_path('images'),
         ]);
 
-        return $pdf->stream("Score.pdf");
+        $pdf->save("public/scores/$match->id.pdf", 'local');
+
+        $love = new Ilovepdf('project_public_60fe87a68f6813853d3595269322bb07_b_sBzedffdb57573e29748a8e0fae2fd4d3ef', 'secret_key_d875f8437e476cc15641885cbcaebc3f_RCqMXb54821ac7b6bb0d313394157517a9dd8');
+        $task = $love->newTask('pdfjpg');
+        $file = $task->addFile(storage_path("app/public/scores/$match->id/$match->id.pdf"));
+        $task->setOutputFilename($match->localTeam->name . '_' . $match->guestTeam->name);
+        $task->execute();
+        $task->download(storage_path("app/public/scores/$match->id"));
+
+        return response()->download(storage_path("app/public/scores/$match->id/" . $match->localTeam->name . '_' . $match->guestTeam->name . '.pdf'));
+        /* return $pdf->stream("Score.pdf"); */
     }
 }
