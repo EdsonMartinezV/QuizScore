@@ -25,6 +25,7 @@ Route::middleware('auth')->prefix('/equipos')->controller(TeamController::class)
 
 Route::middleware('auth')->prefix('/competencias')->controller(QuizMatchController::class)->group(function () {
     Route::get('/', 'index')->name('quizMatches.index');
+    Route::get('/download/{matchId}', 'download')->name('quizMatches.download');
     Route::post('/', 'store')->name('quizMatches.store');
     Route::patch('/', 'update')->name('quizMatches.update');
     Route::delete('/', 'delete')->name('quizMatches.delete');

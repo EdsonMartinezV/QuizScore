@@ -21,7 +21,7 @@ const props = defineProps({
     required: true
   },
   matchTypes: {
-    type: Array,
+    type: [Array, Object],
     required: true
   },
   modalTitle: {
@@ -255,12 +255,12 @@ function closeCreateForm() {
               <p v-if="match.guest_score != null" class="text-teal-500 dark:text-teal-300 bg-gray-100 dark:bg-gray-900 px-2 py-1 text-center rounded-md">{{ match.guest_score }}</p>
             </div>
           </div>
-          <div v-if="user.is_able_to.quiz_matches.generate_pic" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-tl-lg rounded-bl-lg sm:rounded-lg px-4 flex gap-2 justify-around items-center w-fit">
-            <SecondaryButton v-if="match.local_score != null && match.guest_score != null" @click.stop="" class="!p-2 !border-none">
+          <div v-if="user.is_able_to.quiz_matches.download" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-tl-lg rounded-bl-lg sm:rounded-lg px-4 flex gap-2 justify-around items-center w-fit">
+            <a v-if="match.local_score != null && match.guest_score != null" :href="route('quizMatches.download', { matchId: match.id })" class="!p-2 !border-none inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fbbf24" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
               </svg>
-            </SecondaryButton>
+            </a>
           </div>
         </div>
 

@@ -87,7 +87,7 @@ class User extends Authenticatable
                     'create' => $this->can('create', QuizMatch::class),
                     'update' => $this->can('update', QuizMatch::class),
                     'delete' => $this->can('delete', QuizMatch::class),
-                    'generate_pic' => $this->can('generatePic', QuizMatch::class),
+                    'download' => $this->can('download', QuizMatch::class),
                 ],
                 'teams' => [
                     'view_any' => $this->can('viewAny', Team::class),

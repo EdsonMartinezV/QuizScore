@@ -7,8 +7,11 @@ use App\Http\Requests\ScoreRequest;
 use App\MatchType;
 use App\Models\QuizMatch;
 use App\Models\Team;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Dompdf\Adapter\CPDF;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -74,5 +77,36 @@ class QuizMatchController extends Controller
             'modalTitle' => 'Competencia creada!',
             'modalMessage' => 'Ya casi tenemos campeón'
         ]);
+    }
+
+    public function download(Request $request, int $matchId) {
+        Gate::authorize('download', QuizMatch::class);
+        $match = QuizMatch::where('id', $matchId)->first();
+
+        $types = [
+            'regular' => '',
+            'quarter_final' => '4os',
+            'semi_final' => 'Semi',
+            'third' => '3er',
+            'final' => 'Final',
+        ];
+
+        $pdf = Pdf::loadView('quizMatches.score'. $types[$match->type], [
+            'match' => $match->load(['localTeam', 'guestTeam']),
+            'publicPath' => env('PUBLIC_FOLDER'),
+            'isLocalEnv' => App::environment('local')
+        ]);
+
+        $options = $pdf->getOptions();
+        $options->setFontCache(storage_path('fonts'));
+        $options->set('isRemoteEnabled', true);
+        $options->set('pdfBackend', 'CPDF');
+        $options->setChroot([
+            'resources/views/',
+            storage_path('fonts'),
+            storage_path('images'),
+        ]);
+
+        return $pdf->stream("Score.pdf");
     }
 }

@@ -38,7 +38,7 @@ class QuizMatchPolicy
         return false;
     }
 
-    public function generatePic(User $user): bool{
+    public function download(User $user): bool{
         return $user->is_downloader;
     }
 }

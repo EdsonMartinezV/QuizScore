@@ -24,7 +24,7 @@ class QuizMatchRequest extends FormRequest
     public function rules(): array{
         return [
             'local_team_id' => ['required', 'exists:teams,id'],
-            'guest_team_id' => ['required', 'exists:teams,id'],
+            'guest_team_id' => ['required', 'exists:teams,id', 'different:local_team_id'],
             'type' => ['required', Rule::enum(MatchType::class)]
         ];
     }

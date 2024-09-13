@@ -40,6 +40,7 @@ class QuizMatch extends Model
                     'regular' => 'Regular',
                     'quarter_final' => 'Cuartos de final',
                     'semi_final' => 'Semifinal',
+                    'third' => 'Tercer Lugar',
                     'final' => 'Final'
                 ];
                 return $types[$this->type];
