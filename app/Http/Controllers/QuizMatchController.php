@@ -119,6 +119,9 @@ class QuizMatchController extends Controller
             $file = $task->addFile(storage_path("app/public/scores/$match->id/$match->localTeamIdName-$match->guestTeamIdName.pdf"));
             $task->execute();
             $task->download(storage_path("app/public/scores/$match->id"));
+            $match->update([
+                'downloaded' => true
+            ]);
         }
 
         return response()->download(storage_path("app/public/scores/$match->id/$match->localTeamIdName-$match->guestTeamIdName-0001.jpg"));
