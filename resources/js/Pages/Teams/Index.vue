@@ -66,6 +66,7 @@ function closeModal() {
                 <th scope="col" class="px-2 py-3">Juegos</th>
                 <th scope="col" class="px-2 py-3">Ganados</th>
                 <th scope="col" class="px-2 py-3">Perdidos</th>
+                <th scope="col" class="px-2 py-3">Empatados</th>
                 <th scope="col" class="px-2 py-3 whitespace-nowrap">Puntos +</th>
                 <th scope="col" class="px-2 py-3 whitespace-nowrap">Puntos -</th>
                 <th scope="col" class="px-2 py-3">Diferencia</th>
@@ -76,6 +77,7 @@ function closeModal() {
                   <td class="p-2 text-center">{{ team.played_matches }}</td>
                   <td :class="[index < 8 ? 'text-pink-700 dark:text-pink-600' : '']" class="p-2 text-center font-bold">{{ team.won_matches }}</td>
                   <td class="p-2 text-center">{{ team.lost_matches }}</td>
+                  <td class="p-2 text-center">{{ team.drawn_matches }}</td>
                   <td :class="[index < 8 ? 'text-yellow-600 dark:text-amber-400' : '']" class="p-2 text-center font-bold">{{ team.scored_points }}</td>
                   <td class="p-2 text-center">{{ team.conceded_points }}</td>
                   <td :class="[index < 8 ? 'text-yellow-600 dark:text-amber-400' : '']" class="p-2 text-center font-bold">{{ team.point_spread }}</td>

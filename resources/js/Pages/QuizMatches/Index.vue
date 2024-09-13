@@ -83,6 +83,8 @@ function prepareScoreForm(match) {
   if (user.is_able_to.quiz_matches.update) {
     currentMatch.value = match
     scoreForm.id = match.id
+    scoreForm.local_score = currentMatch.value.local_score != null ? currentMatch.value.local_score : ''
+    scoreForm.guest_score = currentMatch.value.guest_score != null ? currentMatch.value.guest_score : ''
     showScoreForm.value = true
   }
 };

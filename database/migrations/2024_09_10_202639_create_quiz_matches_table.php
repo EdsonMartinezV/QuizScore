@@ -25,6 +25,7 @@ return new class extends Migration
             $table->enum('type', array_column(MatchType::cases(), 'value'))
                 ->default(MatchType::REGULAR);
             $table->boolean('downloaded')->default(false);
+            $table->boolean('has_changed')->default(false);
             $table->primary(['id', 'local_team_id', 'guest_team_id', 'type']);
             $table->timestamps();
         });

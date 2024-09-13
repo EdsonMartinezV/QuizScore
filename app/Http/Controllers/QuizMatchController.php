@@ -41,25 +41,62 @@ class QuizMatchController extends Controller
         $localTeam = $match->localTeam;
         $guestTeam = $match->guestTeam;
 
+        $oldLocalScore = $match->local_score;
+        $oldGuestScore = $match->guest_score;
+
+        $oldLocalWon = $oldLocalScore > $oldGuestScore;
+        $oldGuestWon = $oldGuestScore > $oldLocalScore;
+
+        $newLocalWon = $validated['local_score'] > $validated['guest_score'];
+        $newGuestWon = $validated['guest_score'] > $validated['local_score'];
+
+        /* $oldLocalWins = $localTeam->won_matches;
+        $oldLocalLosts = $localTeam->lost_matches;
+        $oldLocalDrawns = $localTeam->drawn_matches;
+
+        $oldGuestWins = $guestTeam->won_matches;
+        $oldGuestLosts = $guestTeam->lost_matches;
+        $oldGuestDrawns = $guestTeam->drawn_matches; */
+
         $match->update([
             'local_score' => $validated['local_score'],
-            'guest_score' => $validated['guest_score']
+            'guest_score' => $validated['guest_score'],
         ]);
 
-        $localTeam->update([
-            'won_matches' => $validated['local_score'] > $validated['guest_score'] ? ++$localTeam->won_matches : $localTeam->won_matches,
-            'lost_matches' => $validated['local_score'] < $validated['guest_score'] ? ++$localTeam->lost_matches : $localTeam->lost_matches,
-            'drawn_matches' => $validated['local_score'] == $validated['guest_score'] ? ++$localTeam->drawn_matches : $localTeam->drawn_matches,
-            'scored_points' => $match->type == 'regular' ? $localTeam->scored_points + $validated['local_score'] : $localTeam->scored_points,
-            'conceded_points' => $match->type == 'regular' ? $localTeam->conceded_points + $validated['guest_score'] : $localTeam->conceded_points
-        ]);
+        if (!$match->has_changed) {
+            $localTeam->update([
+                'won_matches' => $validated['local_score'] > $validated['guest_score'] ? ++$localTeam->won_matches : $localTeam->won_matches,
+                'lost_matches' => $validated['local_score'] < $validated['guest_score'] ? ++$localTeam->lost_matches : $localTeam->lost_matches,
+                'drawn_matches' => $validated['local_score'] == $validated['guest_score'] ? ++$localTeam->drawn_matches : $localTeam->drawn_matches,
+                'scored_points' => $match->type == 'regular' ? $localTeam->scored_points + $validated['local_score'] : $localTeam->scored_points,
+                'conceded_points' => $match->type == 'regular' ? $localTeam->conceded_points + $validated['guest_score'] : $localTeam->conceded_points
+            ]);
 
-        $guestTeam->update([
-            'won_matches' => $validated['guest_score'] > $validated['local_score'] ? ++$guestTeam->won_matches : $guestTeam->won_matches,
-            'lost_matches' => $validated['guest_score'] < $validated['local_score'] ? ++$guestTeam->lost_matches : $guestTeam->lost_matches,
-            'drawn_matches' => $validated['guest_score'] == $validated['local_score'] ? ++$guestTeam->drawn_matches : $guestTeam->drawn_matches,
-            'scored_points' => $match->type == 'regular' ? $guestTeam->scored_points + $validated['guest_score'] : $guestTeam->scored_points,
-            'conceded_points' => $match->type == 'regular' ? $guestTeam->conceded_points + $validated['local_score'] : $guestTeam->conceded_points
+            $guestTeam->update([
+                'won_matches' => $validated['guest_score'] > $validated['local_score'] ? ++$guestTeam->won_matches : $guestTeam->won_matches,
+                'lost_matches' => $validated['guest_score'] < $validated['local_score'] ? ++$guestTeam->lost_matches : $guestTeam->lost_matches,
+                'drawn_matches' => $validated['guest_score'] == $validated['local_score'] ? ++$guestTeam->drawn_matches : $guestTeam->drawn_matches,
+                'scored_points' => $match->type == 'regular' ? $guestTeam->scored_points + $validated['guest_score'] : $guestTeam->scored_points,
+                'conceded_points' => $match->type == 'regular' ? $guestTeam->conceded_points + $validated['local_score'] : $guestTeam->conceded_points
+            ]);
+        } else {
+            $localTeam->update([
+                'won_matches' => $oldGuestWon && $newLocalWon ? ++$localTeam->won_matches : ($oldLocalWon && $newGuestWon ? --$localTeam->won_matches : $localTeam->won_matches),
+                'lost_matches' => $oldLocalWon && $newGuestWon ? ++$localTeam->lost_matches : ($oldGuestWon && $newLocalWon ? --$localTeam->lost_matches : $localTeam->lost_matches),
+                'drawn_matches' => $oldLocalWon && $newGuestWon ? ++$localTeam->drawn_matches : ($oldGuestWon && $newLocalWon ? --$localTeam->drawn_matches : $localTeam->drawn_matches),
+                'scored_points' => $match->type == 'regular' ? $localTeam->scored_points + $validated['local_score'] - $oldLocalScore : $localTeam->scored_points,
+                'conceded_points' => $match->type == 'regular' ? $localTeam->conceded_points + $validated['guest_score'] - $oldGuestScore : $localTeam->conceded_points
+            ]);
+
+            $guestTeam->update([
+                'scored_points' => $match->type == 'regular' ? $guestTeam->scored_points + $validated['guest_score'] - $oldGuestScore : $guestTeam->scored_points,
+                'conceded_points' => $match->type == 'regular' ? $guestTeam->conceded_points + $validated['local_score'] - $oldLocalScore : $guestTeam->conceded_points
+            ]);
+        }
+
+        $match->update([
+            'has_changed' => true,
+            'downloaded' => false
         ]);
 
         return to_route('quizMatches.index', [
@@ -93,7 +130,11 @@ class QuizMatchController extends Controller
             'final' => 'Final',
         ];
 
-        if (!Storage::exists("public/scores/$match->id/$match->localTeamIdName-$match->guestTeamIdName.pdf")){
+        $match->update([
+            'downloaded' => false
+        ]);
+
+        if (!Storage::exists("public/scores/$match->id/$match->localTeamIdName-$match->guestTeamIdName-0001.jpg") || $match->has_changed){
             $pdf = Pdf::loadView('quizMatches.score'. $types[$match->type], [
                 'match' => $match->load(['localTeam', 'guestTeam']),
                 'publicPath' => env('PUBLIC_FOLDER'),
@@ -111,15 +152,14 @@ class QuizMatchController extends Controller
             ]);
 
             $pdf->save("public/scores/$match->id/$match->localTeamIdName-$match->guestTeamIdName.pdf", 'local');
-        }
 
-        if (!Storage::exists("public/scores/$match->id/$match->localTeamIdName-$match->guestTeamIdName-0001.jpg")){
             $love = new Ilovepdf('project_public_60fe87a68f6813853d3595269322bb07_b_sBzedffdb57573e29748a8e0fae2fd4d3ef', 'secret_key_d875f8437e476cc15641885cbcaebc3f_RCqMXb54821ac7b6bb0d313394157517a9dd8');
             $task = $love->newTask('pdfjpg');
             $file = $task->addFile(storage_path("app/public/scores/$match->id/$match->localTeamIdName-$match->guestTeamIdName.pdf"));
             $task->execute();
             $task->download(storage_path("app/public/scores/$match->id"));
             $match->update([
+                'has_changed' => true,
                 'downloaded' => true
             ]);
         }

@@ -19,7 +19,8 @@ class QuizMatch extends Model
         'guest_team_id',
         'guest_score',
         'type',
-        'downloaded'
+        'downloaded',
+        'has_changed'
     ];
 
     protected $appends = [
