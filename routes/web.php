@@ -18,6 +18,7 @@ Route::get('/inicio', function () {
 
 Route::middleware('auth')->prefix('/equipos')->controller(TeamController::class)->group(function () {
     Route::get('/', 'index')->name('teams.index');
+    Route::get('/download', 'download')->name('teams.download');
     Route::post('/', 'store')->name('teams.store');
     Route::patch('/', 'update')->name('teams.update');
     Route::delete('/', 'delete')->name('teams.delete');

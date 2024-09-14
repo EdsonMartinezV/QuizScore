@@ -37,4 +37,8 @@ class TeamPolicy
     public function delete(User $user): bool{
         return false;
     }
+
+    public function download(User $user): bool{
+        return $user->is_downloader;
+    }
 }

@@ -26,6 +26,8 @@ const props = defineProps({
   }
 })
 
+const user = usePage().props.auth.user
+
 /* ALERT MODAL */
 const showModal = defineModel('showModal')
 function closeModal() {
@@ -56,6 +58,15 @@ function closeModal() {
     <!-- OUTER CONTAINER -->
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-2">
+
+      <!-- CREATE CONTAINER -->
+      <div v-if="user.is_able_to.teams.download" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-2 flex gap-2 justify-start">
+        <a :href="route('teams.download')" class="border border-amber-500 !p-2 inline-flex items-center bg-white dark:bg-gray-800 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fbbf24" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+          </svg>
+        </a>
+      </div>
 
         <!-- TEAMS CONTAINERS -->
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-4 flex gap-2 justify-around">

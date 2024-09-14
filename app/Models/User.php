@@ -94,6 +94,7 @@ class User extends Authenticatable
                     'create' => $this->can('create', Team::class),
                     'update' => $this->can('update', Team::class),
                     'delete' => $this->can('delete', Team::class),
+                    'download' => $this->can('download', Team::class),
                 ]
             ]
         );
