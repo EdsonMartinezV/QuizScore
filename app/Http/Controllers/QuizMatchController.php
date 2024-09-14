@@ -46,9 +46,11 @@ class QuizMatchController extends Controller
 
         $oldLocalWon = $oldLocalScore > $oldGuestScore;
         $oldGuestWon = $oldGuestScore > $oldLocalScore;
+        $oldDrawn = $oldLocalScore == $oldGuestScore;
 
         $newLocalWon = $validated['local_score'] > $validated['guest_score'];
         $newGuestWon = $validated['guest_score'] > $validated['local_score'];
+        $newDrawn = $validated['guest_score'] == $validated['local_score'];
 
         /* $oldLocalWins = $localTeam->won_matches;
         $oldLocalLosts = $localTeam->lost_matches;
@@ -81,14 +83,17 @@ class QuizMatchController extends Controller
             ]);
         } else {
             $localTeam->update([
-                'won_matches' => $oldGuestWon && $newLocalWon ? ++$localTeam->won_matches : ($oldLocalWon && $newGuestWon ? --$localTeam->won_matches : $localTeam->won_matches),
-                'lost_matches' => $oldLocalWon && $newGuestWon ? ++$localTeam->lost_matches : ($oldGuestWon && $newLocalWon ? --$localTeam->lost_matches : $localTeam->lost_matches),
-                'drawn_matches' => $oldLocalWon && $newGuestWon ? ++$localTeam->drawn_matches : ($oldGuestWon && $newLocalWon ? --$localTeam->drawn_matches : $localTeam->drawn_matches),
+                'won_matches' => ($oldGuestWon || $oldDrawn) && $newLocalWon ? ++$localTeam->won_matches : ($oldLocalWon && ($newGuestWon || $newDrawn) ? --$localTeam->won_matches : $localTeam->won_matches),
+                'lost_matches' => ($oldLocalWon || $oldDrawn) && $newGuestWon ? ++$localTeam->lost_matches : ($oldGuestWon && ($newLocalWon || $newDrawn) ? --$localTeam->lost_matches : $localTeam->lost_matches),
+                'drawn_matches' => !$oldDrawn && $newDrawn ? ++$localTeam->drawn_matches : ($oldDrawn && !$newDrawn ? --$localTeam->drawn_matches : $localTeam->drawn_matches),
                 'scored_points' => $match->type == 'regular' ? $localTeam->scored_points + $validated['local_score'] - $oldLocalScore : $localTeam->scored_points,
                 'conceded_points' => $match->type == 'regular' ? $localTeam->conceded_points + $validated['guest_score'] - $oldGuestScore : $localTeam->conceded_points
             ]);
 
             $guestTeam->update([
+                'won_matches' => ($oldLocalWon || $oldDrawn) && $newGuestWon ? ++$guestTeam->won_matches : ($oldGuestWon && ($newLocalWon || $newDrawn) ? --$guestTeam->won_matches : $guestTeam->won_matches),
+                'lost_matches' => ($oldGuestWon || $oldDrawn) && $newLocalWon ? ++$guestTeam->lost_matches : ($oldLocalWon && ($newGuestWon || $newDrawn) ? --$guestTeam->lost_matches : $guestTeam->lost_matches),
+                'drawn_matches' => !$oldDrawn && $newDrawn ? ++$guestTeam->drawn_matches : ($oldDrawn && !$newDrawn ? --$guestTeam->drawn_matches : $guestTeam->drawn_matches),
                 'scored_points' => $match->type == 'regular' ? $guestTeam->scored_points + $validated['guest_score'] - $oldGuestScore : $guestTeam->scored_points,
                 'conceded_points' => $match->type == 'regular' ? $guestTeam->conceded_points + $validated['local_score'] - $oldLocalScore : $guestTeam->conceded_points
             ]);
