@@ -34,14 +34,19 @@ const props = defineProps({
   }
 })
 
+const user = usePage().props.auth.user
+
 /* ALERT MODAL */
+const isSheila = ref(user.nickname == 'Sheila')
 const showModal = defineModel('showModal')
 function closeModal() {
   showModal.value = false
-  router.get(route('quizMatches.index'))
+  if (isSheila.value) {
+    isSheila.value = false
+  } else {
+    router.get(route('quizMatches.index'))
+  }
 }
-
-const user = usePage().props.auth.user
 
 /* SEARCH */
 const filteredMatches = ref(props.matches)
@@ -205,7 +210,7 @@ function closeCreateForm() {
     </Modal>
 
     <!-- ALERT MODAL -->
-    <Modal :show="showModal || user.nickname == 'Sheila'" @close="closeModal">
+    <Modal :show="showModal || isSheila" @close="closeModal">
       <div class="p-6">
         <div v-if="user.nickname == 'Sheila'">
           <h2 class="text-lg font-medium text-gray-900 dark:text-gray-200">Hola amilla 🥺</h2>
