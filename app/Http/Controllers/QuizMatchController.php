@@ -164,7 +164,7 @@ class QuizMatchController extends Controller
             $task->execute();
             $task->download(storage_path("app/public/scores/$match->id"));
             $match->update([
-                'has_changed' => true,
+                'has_changed' => false,
                 'downloaded' => true
             ]);
         }
