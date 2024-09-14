@@ -205,10 +205,25 @@ function closeCreateForm() {
     </Modal>
 
     <!-- ALERT MODAL -->
-    <Modal :show="showModal" @close="closeModal">
+    <Modal :show="showModal || user.nickname == 'Sheila'" @close="closeModal">
       <div class="p-6">
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-200">{{ props.modalTitle != null ? props.modalTitle : '' }}</h2>
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-100">{{ props.modalMessage != null ? props.modalMessage : '' }}</p>
+        <div v-if="user.nickname == 'Sheila'">
+          <h2 class="text-lg font-medium text-gray-900 dark:text-gray-200">Hola amilla 🥺</h2>
+          <p class="mt-1 text-sm text-gray-600 dark:text-gray-100">
+            Antes que nada quiero pedirle disculpas una vez más, mi intención nunca fue hacerla
+            enojar o sentir mal, pero a veces mi torpeza no me hace ver que lo que hago podría no
+            resultar como esperaba, me siento como Calamardo cuando hace bromas y solo a el le
+            dan risa, no haré más bromas así amilla, sentí feo hacerla sentir así 💔
+            Mejor cambio las bromas por más coquitas y tlayudas 🤭 sin más por el momento deseo que
+            siga pasando usted una bonita noche
+            <br><br>
+            Ahora si, si pone su teléfono en modo oscuro se ve más chido 🤭
+          </p>
+        </div>
+        <div v-else>
+          <h2 class="text-lg font-medium text-gray-900 dark:text-gray-200">{{ props.modalTitle != null ? props.modalTitle : '' }}</h2>
+          <p class="mt-1 text-sm text-gray-600 dark:text-gray-100">{{ props.modalMessage != null ? props.modalMessage : '' }}</p>
+        </div>
           <div class="mt-6 flex justify-end">
             <SecondaryButton @click="closeModal"> Cerrar </SecondaryButton>
           </div>
